@@ -6,9 +6,9 @@ A simple Code editor built wiht Python and Pyside6 FrameWork.
 
 ## curent features (v0)
 
--Open file
--Edit file
--Save file
+- Open file
+- Edit file
+- Save file
 
 ## future features(v1)
 
