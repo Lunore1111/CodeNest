@@ -9,6 +9,7 @@ from PySide6.QtCore import Qt, QSize
 
 class open_file(QWidget):
     file_loaded = Signal(str) # this signal will carry file data str is data we have to pass
+    file_name = Signal(str) 
     def __init__(self,stack_panels):
         super().__init__()
         self.stack_panels = stack_panels
@@ -34,6 +35,8 @@ class open_file(QWidget):
                 self.file_content = file_read.read()
                 self.stack_panels.setCurrentIndex(1)
                 self.file_loaded.emit(self.file_content) # passing self.file_content as data /str 
+                self.get_file_name = file_path
+                self.file_name.emit(self.get_file_name)
         else:
             QMessageBox(
                 self,
@@ -62,7 +65,7 @@ class editor_part(QMainWindow):
         self.widget.back.clicked.connect(self.go_back)
     def save_to_file(self):
         strings = self.widget.editor.toPlainText()
-        with open("src1","w") as write_file:
+        with open(self.open_file.get_file_name,"w") as write_file:
             write_file.write(strings)
     def update_buffer(self):
         self.widget.editor.setPlainText(self.open_file.file_content)
